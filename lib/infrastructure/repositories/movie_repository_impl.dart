@@ -37,5 +37,5 @@ class MovieRepositoryImpl extends MoviesRepository {
     return moviesDataSource.searchMovies(query);
   }
 
- }
-
+}
+ 
