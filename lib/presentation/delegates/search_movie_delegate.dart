@@ -13,6 +13,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
   SearchMovieDelegate({required this.searchMovies});
 
+  void clearStreams() {
+    debouncedMovies.close();
+  }
+
   void _onQueryChange(String query) {
     if(_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
 
@@ -46,7 +50,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      onPressed: () => close(context, null),
+      onPressed: () {
+        clearStreams();
+        close(context, null);
+      },
       icon: const Icon(Icons.arrow_back_ios_new_rounded),
     );
   }
@@ -68,11 +75,12 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
         return ListView.builder(
           itemCount: movies.length,
           itemBuilder: (context, index) {
-            final movie = movies[index];
-
             return _MovieSearchItem(
-              movie: movie,
-              onMovieselected: close
+              movie: movies[index],
+              onMovieselected: (context, movie) {
+                clearStreams();
+                close(context, movie);
+              }
             );
           },
         );
@@ -93,7 +101,7 @@ class _MovieSearchItem extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return GestureDetector(
-      onTap: () => onMovieselected(movie),
+      onTap: () => onMovieselected(context, movie),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Row(
@@ -136,5 +144,4 @@ class _MovieSearchItem extends StatelessWidget {
     );
   }
 }
-
 
