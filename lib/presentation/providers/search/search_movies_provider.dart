@@ -1,7 +1,7 @@
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:cinemapedia/presentation/providers/providers.dart';
+
 final searchQueryProvider = StateProvider<String>((ref) => '');
 
 final searchMoviesProvider = StateNotifierProvider<SearchMoviesNotifier, List<Movie>>((ref) {

@@ -1,1 +1,5 @@
 include: package:flutter_lints/flutter.yaml
+formatter:
+  page_width: 80
+  line_length: 80
+  tab_size: 2
