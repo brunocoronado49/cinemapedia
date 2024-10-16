@@ -53,7 +53,6 @@ class _MovieMasonryState extends State<MovieMasonry> {
               ],
             );
           }
-
           return MoviePosterLink(movie: widget.movies[index]);
         },
       ),
